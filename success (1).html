@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Success</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      background-color: #f0fff0;
+    }
+    h1 {
+      text-align: center;
+      color: #28a745;
+    }
+    .receipt {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-top: 30px;
+      background-color: #fff;
+    }
+    .receipt h2 {
+      margin-bottom: 20px;
+    }
+    .receipt p {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Payment Successful!</h1>
+  <p>Thank you for your payment. Here's your receipt:</p>
+
+  <div class="receipt">
+    <h2>Receipt Details</h2>
+    <p><strong>Transaction ID:</strong> <span id="transaction-id">Loading...</span></p>
+    <p><strong>Amount Paid:</strong> <span id="amount-paid">Loading...</span></p>
+    <p><strong>Date of Payment:</strong> <span id="payment-date">Loading...</span></p>
+  </div>
+
+  <script>
+    // Sample data that would come from your backend (replace this with actual data)
+    const transactionId = "txn_12345";
+    const amountPaid = "$20.00";  // Dynamic amount based on the payment
+    const paymentDate = new Date().toLocaleString();  // Current date and time
+
+    // Set the values in the HTML
+    document.getElementById("transaction-id").textContent = transactionId;
+    document.getElementById("amount-paid").textContent = amountPaid;
+    document.getElementById("payment-date").textContent = paymentDate;
+  </script>
+</body>
+</html>
