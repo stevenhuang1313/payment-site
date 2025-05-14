@@ -1,66 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tip Steven on Ko-fi</title>
+  <title>Receipt</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #333;
+      padding: 40px;
       max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
+      margin: auto;
+      background-color: #e8fff2;
     }
     h1 {
       text-align: center;
-      color: #ff5e5b;
+      color: #2e8b57;
+    }
+    .receipt {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      margin-top: 30px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     p {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .tip-button {
-      display: block;
-      width: fit-content;
-      margin: 0 auto 30px auto;
-      padding: 12px 24px;
-      background-color: #ff5e5b;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    .tip-button:hover {
-      background-color: #e14e4b;
-    }
-    iframe {
-      border: none;
-      width: 100%;
-      padding: 4px;
-      background: #f9f9f9;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
+  <h1>Thank You!</h1>
+  <div class="receipt">
+    <h2>Payment Receipt</h2>
+    <p><strong>Amount Sent:</strong> $<span id="amount">0</span></p>
+    <p><strong>Date:</strong> <span id="date">Loading...</span></p>
+    <p><strong>Transaction ID:</strong> <span id="tx">TXN-<span id="rand"></span></span></p>
+  </div>
 
-  <h1>Support Steven</h1>
-  <p>If you like my work, consider sending a tip through Ko-fi!</p>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get("amount");
+    const time = params.get("time");
 
-  <!-- Tip button -->
-  <a class="tip-button" href="https://ko-fi.com/stevenhuang1313" target="_blank">
-    💖 Send a Tip on Ko-fi
-  </a>
-
-  <!-- Ko-fi embed -->
-  <iframe id='kofiframe'
-    src='https://ko-fi.com/stevenhuang1313/?hidefeed=true&widget=true&embed=true&preview=true'
-    height='712'
-    title='stevenhuang1313'>
-  </iframe>
-
+    document.getElementById("amount").textContent = amount || "0";
+    document.getElementById("date").textContent = new Date(time).toLocaleString();
+    document.getElementById("rand").textContent = Math.floor(Math.random() * 1000000);
+  </script>
 </body>
 </html>
