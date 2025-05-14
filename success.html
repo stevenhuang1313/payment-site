@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Payment Success</title>
+  <title>Receipt</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -10,47 +10,59 @@
       padding: 40px;
       max-width: 600px;
       margin: auto;
-      background-color: #f0fff0;
+      background-color: #e8fff2;
     }
     h1 {
       text-align: center;
-      color: #28a745;
+      color: #2e8b57;
     }
-    .receipt {
-      border: 1px solid #ddd;
-      padding: 20px;
+    .receipt, .error {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
       margin-top: 30px;
-      background-color: #fff;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
-    .receipt h2 {
-      margin-bottom: 20px;
+    .error {
+      background-color: #ffe5e5;
+      color: #d00000;
     }
-    .receipt p {
+    p {
       margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>Payment Successful!</h1>
-  <p>Thank you for your payment. Here's your receipt:</p>
-
-  <div class="receipt">
-    <h2>Receipt Details</h2>
-    <p><strong>Transaction ID:</strong> <span id="transaction-id">Loading...</span></p>
-    <p><strong>Amount Paid:</strong> <span id="amount-paid">Loading...</span></p>
-    <p><strong>Date of Payment:</strong> <span id="payment-date">Loading...</span></p>
-  </div>
+  <h1 id="heading">Loading...</h1>
+  <div id="content"></div>
 
   <script>
-    // Sample data that would come from your backend (replace this with actual data)
-    const transactionId = "txn_12345";
-    const amountPaid = "$20.00";  // Dynamic amount based on the payment
-    const paymentDate = new Date().toLocaleString();  // Current date and time
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get("amount");
+    const time = params.get("time");
 
-    // Set the values in the HTML
-    document.getElementById("transaction-id").textContent = transactionId;
-    document.getElementById("amount-paid").textContent = amountPaid;
-    document.getElementById("payment-date").textContent = paymentDate;
+    const content = document.getElementById("content");
+    const heading = document.getElementById("heading");
+
+    if (!amount || !time) {
+      heading.textContent = "Error";
+      content.innerHTML = `
+        <div class="error">
+          <p><strong>Oops!</strong> This page can't be viewed directly.</p>
+          <p>Please go to the payment page and try again.</p>
+        </div>
+      `;
+    } else {
+      heading.textContent = "Thank You!";
+      content.innerHTML = `
+        <div class="receipt">
+          <h2>Payment Receipt</h2>
+          <p><strong>Amount Sent:</strong> $${amount}</p>
+          <p><strong>Date:</strong> ${new Date(time).toLocaleString()}</p>
+          <p><strong>Transaction ID:</strong> TXN-${Math.floor(Math.random() * 1000000)}</p>
+        </div>
+      `;
+    }
   </script>
 </body>
 </html>
